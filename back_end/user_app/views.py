@@ -28,7 +28,7 @@ class Sign_up(APIView):
             new_user.save()
             login(request, new_user)
             token = Token.objects.create(user = new_user)
-            response = Response({"user":new_user.display_name}, status=HTTP_201_CREATED)
+            response = Response({"user":new_user.user_name}, status=HTTP_201_CREATED)
             life_time = datetime.now()+timedelta(days=7)
             flife_time = life_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
             response.set_cookie(
@@ -53,7 +53,7 @@ class Log_in(APIView):
         if user:
             login(request, user)
             token, created = Token.objects.get_or_create(user = user)
-            response = Response({"user":user.display_name}, status=HTTP_200_OK)
+            response = Response({"user":user.user_name}, status=HTTP_200_OK)
             life_time = datetime.now()+timedelta(days=7)
             flife_time = life_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
             response.set_cookie(
@@ -72,6 +72,8 @@ class TokenReq(APIView):
     authentication_classes=[CookieAuthentication]
     permission_classes = [IsAuthenticated]
 
+
+#logout view not working correctly? credentials not provided?
 class Log_out(TokenReq):
     def post(self, request):
         request.user.auth_token.delete()
@@ -90,7 +92,7 @@ class Info(TokenReq):
             data = request.data.copy()
             ruser = request.user
             # check for display_name, age, address
-            ruser.display_name = data.get("display_name", ruser.display_name)
+            ruser.user_name = data.get("user_name", ruser.user_name)
             ruser.age = data.get("age", ruser.age)
             ruser.address = data.get("address", ruser.address)
             # authenticate credential
@@ -104,7 +106,7 @@ class Info(TokenReq):
             # update password and save it
             ruser.full_clean()
             ruser.save()
-            return Response({"display_name":ruser.display_name, "age":ruser.age, "address":ruser.address})
+            return Response({"user_name":ruser.user_name, "age":ruser.age, "address":ruser.address})
         except ValidationError as e:
             print(e)
             return Response(e, status=HTTP_400_BAD_REQUEST)

@@ -12,7 +12,7 @@ function Input({ id, onChange, value, label, type = 'text' }) {
         type={type}
         id={id}
             className='
-            block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-none focus:ring-0 peer'
+            block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
             placeholder=''/>
         <label 
         className='
