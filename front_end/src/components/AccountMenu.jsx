@@ -3,7 +3,7 @@ import React from 'react'
 
 function AccountMenu() {
   return (
-    <div>AccountMenu</div>
+    <div className='text-white'>AccountMenu</div>
   )
 }
 

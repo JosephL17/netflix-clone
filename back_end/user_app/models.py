@@ -12,3 +12,5 @@ class User(AbstractUser): #look into changing user objects admin permissions
 
     USERNAME_FIELD = 'user_name'
     REQUIRED_FIELDS = [user_name]
+
+    
