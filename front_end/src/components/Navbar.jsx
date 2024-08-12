@@ -53,17 +53,17 @@ function Navbar() {
             </div>
             <div className='flex flex-row ml-auto gap-7 items-center'>
               <div className='text-gray-200 hover:text-gray-300  cursor-pointer transition'>
-              <IoSearch />
+              <IoSearch size={30}/>
                 </div>  
                 <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
-              <BsBell />
+              <BsBell size={20}/>
                 </div> 
                 <div className='flex flex-row items-center gap-2 cursor-pointer relative'>
                     <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden'>
                         <img src="/src/assets/netflix-profile-image.jpg" alt="" />
                     </div>
                     <BsChevronDown className='text-white transition'/>
-                    <AccountMenu />
+                    
                 </div>
             </div>
         </div>
