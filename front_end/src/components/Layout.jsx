@@ -40,18 +40,18 @@ console.log(randomMovie?.title)
   return (
     <>
     <Navbar />
-    <div className='relative w-full h-[750px]'>
+    <div className=' w-full h-[60rem] object-scale-down'>
       <div className='w-full h-full'>
       {/* Main background image with gradient */}
       <div className='absolute w-full h-[550px]'>
       {movies[0]?.poster_path && (
-        <img
+        <img className='object-cover'
           src={`https://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`}
           alt="Main backdrop"
         />
       )}
       <div className='absolute w-full top-[90%] p-4 md:p-8'>
-        <h1 className='text-3xl md:5xl font-bold text-gray-300'>{randomMovie?.title}</h1>
+        <h1 className='text-3xl md:5xl font-bold text-gray-300'>{randomMovie?.title ? randomMovie?.title : randomMovie?.name}</h1>
         <span className='text-sm text-white max-w-20'>{randomMovie?.overview}</span>
         <div className='my-2'>
       <button  className='border bg-white text-black py-4 px-8 rounded-md '> 

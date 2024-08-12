@@ -8,17 +8,18 @@ import AccountMenu from './AccountMenu';
 function Navbar() {
     const navigate = useNavigate()
    
-    const handleClickHome=()=>{
+    const handleClickHome=(e)=>{
         navigate('/home')
+        console.log('hello')
     }
-    const handleClickTVShows=()=>{
+    const handleClickTVShows=(e)=>{
         navigate('/tvshows')
     }
     const handleClickMovies=()=>{
         navigate('/movies')
     }
     const handleClickPopular=()=>{
-        navigate('/Popular')
+        navigate('/new&popular')
     }
     const handleClickMylist=()=>{
         navigate('/MyList')
@@ -40,10 +41,10 @@ function Navbar() {
          >
         <img className='h-4 lg:h-7' src="/src/assets/netflix.png" alt="" />
             <div className='flex-row ml-8 gap-7 hidden lg:flex'>
-                <NavbarItem label='Home'/>
-                <NavbarItem label='TV Shows'/>
-                <NavbarItem label='Movies'/>
-                <NavbarItem label='New & Popular'/>
+                <NavbarItem clickFunc={handleClickHome} label='Home'/>
+                <NavbarItem clickFunc={handleClickTVShows} label='TV Shows'/>
+                <NavbarItem clickFunc={handleClickMovies}label='Movies'/>
+                <NavbarItem clickFunc={handleClickPopular}label='New & Popular'/>
                 <NavbarItem label='My List'/>
                 <NavbarItem label='Browse by languages'/>
             </div>

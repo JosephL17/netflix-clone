@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
-function NavbarItem({label}) {
+function NavbarItem({label, clickFunc}) {
   return (
-    <div className='text-white cursor-pointer hover:text-gray-300 transition'>{label}</div>
+    <div onClick={clickFunc} className='text-white cursor-pointer hover:text-gray-300 transition'>{label}</div>
     
   )
 }
