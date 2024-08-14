@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import Navbar from '../components/Navbar'
 import axios from 'axios'
+import { api } from '../utilities';
 import { FaPlay } from "react-icons/fa";
 
 function Layout() {
@@ -22,12 +23,17 @@ function Layout() {
   //   }
   };
 
-  const getMovies = async () => { 
-  fetch(url)
-    .then(res => res.json())
-    .then(json => setMovies(json.results))
-    .catch(err => console.error('error:' + err));
+  // const getMovies = async () => { 
+  // fetch(url)
+  //   .then(res => res.json())
+  //   .then(json => setMovies(json.results))
+  //   .catch(err => console.error('error:' + err));
   
+  // }
+
+  const getMovies = async() => {
+    let response = await api.get('movies/fetch-data/')
+    setMovies(response.data.results)
   }
 
   useEffect(()=> {

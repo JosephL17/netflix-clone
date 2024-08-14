@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 
@@ -38,13 +38,6 @@ function Input({ id, onChange, value, label, type = 'text' }) {
   )
 }
 
-Input.propTypes = {
-    id: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    type: PropTypes.string,
-  };
 
 
 export default Input

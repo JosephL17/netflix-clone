@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom';
 
 function ProfilePage() {
+    const {user} = useOutletContext()
 
     const navigate = useNavigate()
     // DONT FORGET!!
@@ -23,7 +25,7 @@ function ProfilePage() {
                             <img src="/src/assets/netflix-profile-image.jpg" alt="Profile" />
                         </div>
                             <div className='mt-4 text-gray-400 text-2xl text-center group-hover:text-white' > 
-                                Name 
+                                {user}
                             </div>
                     </div>
                     </div>

@@ -1,27 +1,29 @@
 import React, { useCallback } from 'react';
-import Input from '../components/input';
+// import Input from '../components/input';
 import { useState } from 'react';
 import { useNavigate} from 'react-router-dom'
+import { userRegistration } from '../utilities';
+import { useOutletContext } from "react-router-dom";
 
 function SignUp() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const { setUser } = useOutletContext();
     const navigate = useNavigate()
 
-    const [variant, setVariant] = useState('login')
-
-    const toggleVariant = useCallback(() => {
-        setVariant((currentVariant) => currentVariant === 'Login' ? 'register' : 'login')
-    })
 
     const handleClick = () => {
         navigate('/login')
     }
-
+    
+    const handleSubmit = async(e)=> {
+      e.preventDefault();
+      setUsername(await userRegistration(email, username, password))
+    }
 
   return (
-    <div
+    <form onSubmit={handleSubmit}
       className='w-full h-screen bg-cover bg-center bg-no-repeat bg-fixed'
       style={{
         backgroundImage: `url('/src/assets/background_netflix.jpg')` 
@@ -44,40 +46,38 @@ function SignUp() {
             </h3>
             <h3 className='text-white text 2xl font-semibold m-4'>Ready to watch? Enter your email to create or restart your membership.</h3>
             <div className='flex flex-col gap-4'>
-            {/* <Input 
-                label='Username'
-                onChange={(ev) => setUsername(ev.target.value)}
-                id='username'
+            <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
                 value={username}
-                /> */}
-                <Input 
-                label='Email'
+                onChange={(ev) => setUsername(ev.target.value)}
+                type='text'
+                placeholder='Username'
+                required
+                />
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
+                value={email}
+                placeholder='Email'
                 onChange={(ev) => setEmail(ev.target.value)}
                 id='email'
                 type='email'
-                value={email}
+                required
                 />
-                <Input 
-                label='Password'
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer' 
+                value={password}
+                placeholder='Password'
                 onChange={(ev) => setPassword(ev.target.value)}
                 id='password'
                 type='password'
-                value={password}
+                required
                 />
-            </div>
-            <button className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition' onClick={toggleVariant}>
+            </div> 
+            {/* add type=submit to bottom to properly handle onsubmit event of form */}
+            <button type='submit' className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition'>
                 Get started
             </button>
-            {/* <p className='text-neutral-500 mt-12'>
-                New to Netflix?
-                <span className='text-white ml-1 hover:underline cursor-pointer'>
-                    Sign up now.
-                </span>
-            </p> */}
             </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 
