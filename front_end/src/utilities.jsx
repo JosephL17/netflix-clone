@@ -50,10 +50,13 @@ export const confirmUser = async() => {
 }
 
 export const logOut = async() => {
-    let response = await api.post("users/logout/")
+    // let token = localStorage.getItem("token")
+    let response = await api.post("users/logout/"
+        // {headers: {"Authorization": `Token ${token}`}}
+    )
     if(response.status === 204){
-      localStorage.removeItem("token")
-      delete api.defaults.headers.common["Authorization"]
+        delete api.defaults.headers.common["Authorization"]
+        localStorage.removeItem("token")
       return null
     }
     alert("Something went wrong during log out!")

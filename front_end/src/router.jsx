@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // loader: confirmUser,
+    loader: confirmUser,
     children: [
       {
         index: true,

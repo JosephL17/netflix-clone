@@ -7,8 +7,7 @@ import { logOut } from '../utilities';
 
 function Navbar() {
     const navigate = useNavigate()
-    const {setUser} = useOutletContext()
-    
+    const {user, setUser} = useOutletContext()
    
     const handleClickHome=(e)=>{
         navigate('/home')
@@ -65,7 +64,7 @@ function Navbar() {
               <BsBell size={20}/>
                 </div> 
                 <div className='flex flex-row items-center gap-2 cursor-pointer relative text-white'>
-                        {/* {username} */}
+                        {user}
                     <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden text-white'>
                         <img src="/src/assets/netflix-profile-image.jpg" alt="" />
                     </div>

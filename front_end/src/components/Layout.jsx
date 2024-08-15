@@ -10,28 +10,8 @@ function Layout() {
   const {username, setUsername} = useOutletContext()
   const [movies, setMovies]= useState([])
   const randomMovie = movies[Math.floor(Math.random() * movies.length)]
+ 
   
-
-  // const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1'
-  const url = 'http://127.0.0.1:8000/api/v1/movies/fetch-data/'
-  const options = {
-    method: 'GET',
-
-    // headers not needed when making call to django
-  //   headers: {
-  //     accept: 'application/json',
-  //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyZTg1NWY0NDA3YmUzYmY0Y2IxM2M4ZTNjYTFiZmI5YyIsIm5iZiI6MTcyMzMyOTM5MS41MzU0NCwic3ViIjoiNjZiNjU2YmQ3OTJmNmJjMjMzYTc2NWE3Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.lc-tqw5fAx6HpzcXe4bgIbRfokrq8agd_rQImhnpigY'
-  //   }
-  };
-
-  // const getMovies = async () => { 
-  // fetch(url)
-  //   .then(res => res.json())
-  //   .then(json => setMovies(json.results))
-  //   .catch(err => console.error('error:' + err));
-  
-  // }
-
   const getMovies = async() => {
     let response = await api.get('movies/fetch-data/')
     setMovies(response.data.results)
@@ -41,13 +21,11 @@ function Layout() {
     getMovies()
   }, [])
 
-// console.log(movies)
-// console.log(randomMovie?.title ? randomMovie?.title : randomMovie?.name )
 
   return (
     <>
     <Navbar setUsername={setUsername}/>
-    <div className=' w-full h-[750px] object-scale-down'>
+    <div className=' w-full h-[950px] object-scale-down'>
       <div className='w-full h-full'>
       {/* Main background image with gradient */}
       <div className='absolute w-full h-[550px]'>
@@ -68,13 +46,9 @@ function Layout() {
       </p>
        </button>
       <button className='border bg-gray-500 text-white py-4 px-7 ml-4 rounded-md'>More Info</button>
-      </div>
-
-      </div>
-
-      </div>
-      
-      
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </>
