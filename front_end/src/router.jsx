@@ -9,6 +9,7 @@ import MyList from "./pages/MyList";
 import TVShowsPage from "./pages/TVShowsPage";
 import NewandPopularPage from "./pages/NewandPopularPage";
 import MoviesPage from "./pages/MoviesPage";
+import { confirmUser } from "./utilities";
 
 
 
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    // loader: confirmUser,
     children: [
       {
         index: true,

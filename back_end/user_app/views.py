@@ -25,6 +25,10 @@ from back_end.utilities import HttpOnlyTokenAuthentication
 #   "user": "test8",
 #   "Token": "ae0940763986df5571a5cf3600a98ab9e2ee36a8"
 # }
+#lidia token
+'52faaaa299abd532a71fe1acff9bf28c4ea405d6'
+# fake Token
+# afd7ed0b2cd180e789115c3b46b14035e3bebd67
 
 # Create your views here.
 class Sign_up(APIView):
@@ -40,7 +44,7 @@ class Sign_up(APIView):
             new_user.full_clean()
             # new_user.save()
             new_user.save()
-            login(request, new_user)
+            # login(request, new_user)
             token = Token.objects.create(user = new_user)
             response = Response({"user":new_user.username, "Token": token.key}, status=HTTP_201_CREATED)
             # life_time = datetime.now()+timedelta(days=7)
@@ -61,12 +65,13 @@ class Sign_up(APIView):
 class Log_in(APIView):
     def post(self, request):
         data = request.data.copy()
-        # data['username'] = request.data.get("username", request.data.get("email"))
+        print(data)
         user = authenticate(username=data.get("username"), password=data.get("password"))
         print(user)
         if user:
-            login(request, user)
+            # login(request, user)
             token, created = Token.objects.get_or_create(user = user)
+            print(token, created)
             response = Response({"user":user.username, "Token": token.key}, status=HTTP_200_OK)
             # life_time = datetime.now()+timedelta(days=7)
             # flife_time = life_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
@@ -88,42 +93,15 @@ class TokenReq(APIView):
 
 
 #logout view not working correctly? credentials not provided?
-class Log_out(APIView):
-    authentication_classes=[TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
+class Log_out(TokenReq):
     def post(self, request):
+        print()
         request.user.auth_token.delete()
-        logout(request)
         response = Response(status=HTTP_204_NO_CONTENT)
         # response.delete_cookie('token')
         return response
     
-# class Info(TokenReq):
+class Info(TokenReq):
 
-#     def get(serf, request):
-#         return Response({"user":request.user.display_name})
-    
-#     def put(self, request):
-#         try:
-#             data = request.data.copy()
-#             ruser = request.user
-#             # check for display_name, age, address
-#             ruser.user_name = data.get("user_name", ruser.user_name)
-#             ruser.age = data.get("age", ruser.age)
-#             ruser.address = data.get("address", ruser.address)
-#             # authenticate credential
-#             cur_pass = data.get("password")
-#             if cur_pass and data.get("new_password"):
-#                 auth_user = authenticate(username = ruser.username, password = cur_pass)
-#                 if auth_user == ruser:
-#                     ruser.set_password(data.get("new_password"))
-                    
-#             # if credentials match the user
-#             # update password and save it
-#             ruser.full_clean()
-#             ruser.save()
-#             return Response({"user_name":ruser.user_name, "age":ruser.age, "address":ruser.address})
-#         except ValidationError as e:
-#             print(e)
-#             return Response(e, status=HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        return Response({"user":request.user.username})

@@ -1,13 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import Navbar from '../components/Navbar'
-import axios from 'axios'
 import Layout from '../components/Layout';
 import Row from '../components/Row';
+import { useOutletContext } from 'react-router-dom';
 
 
 function HomePage() {
-
 //   const [movies, setMovies]= useState([])
 //   const randomMovie = movies[Math.floor(Math.random() * movies.length)]
   

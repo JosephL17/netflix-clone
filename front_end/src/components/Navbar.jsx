@@ -1,12 +1,14 @@
 import React from 'react'
 import NavbarItem from './NavbarItem'
 import { BsChevronDown, BsBell } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutlet, useOutletContext } from 'react-router-dom'
 import { IoSearch } from "react-icons/io5";
-import AccountMenu from './AccountMenu';
+import { logOut } from '../utilities';
 
 function Navbar() {
     const navigate = useNavigate()
+    const {setUser} = useOutletContext()
+    
    
     const handleClickHome=(e)=>{
         navigate('/home')
@@ -23,6 +25,9 @@ function Navbar() {
     }
     const handleClickMylist=()=>{
         navigate('/MyList')
+    }
+    const handleClickLogOut = async()=> {
+        setUser(await logOut())
     }
 
   return (
@@ -59,12 +64,13 @@ function Navbar() {
                 <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
               <BsBell size={20}/>
                 </div> 
-                <div className='flex flex-row items-center gap-2 cursor-pointer relative'>
-                    <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden'>
+                <div className='flex flex-row items-center gap-2 cursor-pointer relative text-white'>
+                        {/* {username} */}
+                    <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden text-white'>
                         <img src="/src/assets/netflix-profile-image.jpg" alt="" />
                     </div>
                     <BsChevronDown className='text-white transition'/>
-                    
+                    <button className='border bg-red-600 text-white py-2 px-2 ml-3 rounded-md' onClick={handleClickLogOut}>Logout</button>
                 </div>
             </div>
         </div>

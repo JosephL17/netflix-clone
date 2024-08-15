@@ -3,19 +3,20 @@ import Input from '../components/input';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
-// import SignUp from './SignUp';
+import { logIn } from '../utilities';
+import { useOutletContext } from "react-router-dom";
 
 function LogIn() {
-    const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
+    const { setUser } = useOutletContext();
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
     const [variant, setVariant] = useState('login')
 
-    const toggleVariant = useCallback(() => {
-        setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
-    })
+    // const toggleVariant = useCallback(() => {
+    //     setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
+    // })
 
     const handleClick=()=>{
       navigate('/')
@@ -25,9 +26,14 @@ function LogIn() {
       navigate('/profile')
     }
 
+    const handleSubmit = async(e)=> {
+      e.preventDefault();
+      setUser(await logIn(username, password))
+    }
+
 
   return (
-    <div
+    <form onSubmit={handleSubmit}
       className='w-full h-screen bg-cover bg-center bg-no-repeat bg-fixed'
       style={{
         backgroundImage: `url('/src/assets/background_netflix.jpg')` 
@@ -44,29 +50,31 @@ function LogIn() {
                 Sign In
             </h2>
             <div className='flex flex-col gap-4'>
-            {/* <Input 
-                label='Username'
+            {/* <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
+                value={username}
+                onChange={(ev) => setUsername(ev.target.value)}
+                type='text'
+                placeholder='Username'
+                required
+                /> */}
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
+                value={username}
+                placeholder='username'
                 onChange={(ev) => setUsername(ev.target.value)}
                 id='username'
-                value={username}
-                /> */}
-                <Input 
-                className=''
-                label='Email'
-                onChange={(ev) => setEmail(ev.target.value)}
-                id='email'
-                type='email'
-                value={email}
+                type='text'
+                required
                 />
-                <Input 
-                label='Password'
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer' 
+                value={password}
+                placeholder='Password'
                 onChange={(ev) => setPassword(ev.target.value)}
                 id='password'
                 type='password'
-                value={password}
+                required
                 />
-            </div>
-            <button className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition' onClick={handleSignIn}>
+            </div> 
+            <button type='submit' className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition'>
                 Login
             </button>
             <div className='flex flex-row items-center gap-4 mt-8 justify-center'>
@@ -84,7 +92,7 @@ function LogIn() {
             </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

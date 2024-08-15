@@ -1,15 +1,14 @@
 import React, { useCallback } from 'react';
-// import Input from '../components/input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate} from 'react-router-dom'
 import { userRegistration } from '../utilities';
 import { useOutletContext } from "react-router-dom";
 
 function SignUp() {
     const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
+    // const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const { setUser } = useOutletContext();
+    const { user, setUser, username, setUsername } = useOutletContext();
     const navigate = useNavigate()
 
 
@@ -19,8 +18,14 @@ function SignUp() {
     
     const handleSubmit = async(e)=> {
       e.preventDefault();
-      setUsername(await userRegistration(email, username, password))
+      // might be issue 
+      setUser(await userRegistration(email, username, password))
+      console.log(username)
     }
+
+    useEffect(() => {
+      console.log(username)
+    }, [username])
 
   return (
     <form onSubmit={handleSubmit}

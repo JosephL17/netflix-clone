@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'; 
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLoaderData } from 'react-router-dom'
 import { api } from './utilities';
 import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
 
 function App() {
-  const [user, setUser] = useState(null);
+  console.log('apprendered')
+  const [user, setUser] = useState(useLoaderData())
+  const [username, setUsername] = useState('')
 
   const testConnection = async() => {
     let response = await api.get('test/')
@@ -17,12 +20,12 @@ function App() {
   //   testConnection()
   // }, [])
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
+  // useEffect(() => {
+  //   console.log(user)
+  // }, [user])
 
   return (
-    <Outlet context={{ user, setUser }}/>
+    <Outlet context={{ user, setUser, username, setUsername }}/>
   );
 }
 

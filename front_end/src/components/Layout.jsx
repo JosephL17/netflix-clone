@@ -4,9 +4,10 @@ import Navbar from '../components/Navbar'
 import axios from 'axios'
 import { api } from '../utilities';
 import { FaPlay } from "react-icons/fa";
+import { useOutletContext } from 'react-router-dom';
 
 function Layout() {
-
+  const {username, setUsername} = useOutletContext()
   const [movies, setMovies]= useState([])
   const randomMovie = movies[Math.floor(Math.random() * movies.length)]
   
@@ -40,13 +41,13 @@ function Layout() {
     getMovies()
   }, [])
 
-console.log(movies)
-console.log(randomMovie?.title)
+// console.log(movies)
+// console.log(randomMovie?.title ? randomMovie?.title : randomMovie?.name )
 
   return (
     <>
-    <Navbar />
-    <div className=' w-full h-[60rem] object-scale-down'>
+    <Navbar setUsername={setUsername}/>
+    <div className=' w-full h-[750px] object-scale-down'>
       <div className='w-full h-full'>
       {/* Main background image with gradient */}
       <div className='absolute w-full h-[550px]'>
@@ -55,7 +56,7 @@ console.log(randomMovie?.title)
           src={`https://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`}
           alt="Main backdrop"
         />
-      )}
+      )} 
       <div className='absolute w-full top-[90%] p-4 md:p-8'>
         <h1 className='text-3xl md:5xl font-bold text-gray-300'>{randomMovie?.title ? randomMovie?.title : randomMovie?.name}</h1>
         <span className='text-sm text-white max-w-20'>{randomMovie?.overview}</span>
