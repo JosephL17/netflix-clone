@@ -7,7 +7,7 @@ import { confirmUser } from '../utilities';
 function ProfilePage() {
     // const [username, setUsername] = useState('')
     const { user } = useOutletContext();
-    console.log(user)
+
 
     const navigate = useNavigate()
 

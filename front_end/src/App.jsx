@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'; 
-import LogIn from './pages/LogIn';
-import SignUp from './pages/SignUp';
-import { Navigate, Outlet, useLoaderData, useNavigate } from 'react-router-dom'
-import { api } from './utilities';
-import axios from 'axios';
-import { useOutletContext } from 'react-router-dom';
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom'
+// import LogIn from './pages/LogIn';
+// import SignUp from './pages/SignUp';
+// import { api } from './utilities';
+// import axios from 'axios';
+// import { useOutletContext } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(useLoaderData())
@@ -16,7 +16,7 @@ function App() {
     if (!user && !isPublicRoute){
       navigate('/')
     } else if (user && isPublicRoute) {
-      navigate('/home')
+      navigate('/profile')
     }
   },[location.pathname, user])
 

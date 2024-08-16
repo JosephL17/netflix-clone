@@ -6,9 +6,9 @@ import { useOutletContext } from "react-router-dom";
 
 function SignUp() {
     const [email, setEmail] = useState('')
-    // const [username, setUsername] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const { user, setUser, username, setUsername } = useOutletContext();
+    const { user, setUser} = useOutletContext();
     const navigate = useNavigate()
 
 
@@ -18,14 +18,13 @@ function SignUp() {
     
     const handleSubmit = async(e)=> {
       e.preventDefault();
-      // might be issue 
       setUser(await userRegistration(email, username, password))
       console.log(username)
     }
 
-    useEffect(() => {
-      console.log(username)
-    }, [username])
+    // useEffect(() => {
+    //   console.log(username)
+    // }, [username])
 
   return (
     <form onSubmit={handleSubmit}
@@ -51,14 +50,14 @@ function SignUp() {
             </h3>
             <h3 className='text-white text 2xl font-semibold m-4'>Ready to watch? Enter your email to create or restart your membership.</h3>
             <div className='flex flex-col gap-4'>
-            <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
+            <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-black bg-opacity-50 focus:outline-green-600 focus:ring-0 peer'
                 value={username}
                 onChange={(ev) => setUsername(ev.target.value)}
                 type='text'
                 placeholder='Username'
                 required
                 />
-                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-black bg-opacity-50 focus:outline-green-600 focus:ring-0 peer'
                 value={email}
                 placeholder='Email'
                 onChange={(ev) => setEmail(ev.target.value)}
@@ -66,7 +65,7 @@ function SignUp() {
                 type='email'
                 required
                 />
-                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer' 
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-black bg-opacity-50 focus:outline-green-600 focus:ring-0 peer' 
                 value={password}
                 placeholder='Password'
                 onChange={(ev) => setPassword(ev.target.value)}

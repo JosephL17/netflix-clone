@@ -17,18 +17,6 @@ from .models import User
 from datetime import datetime, timedelta
 from back_end.utilities import HttpOnlyTokenAuthentication
 
-# {
-#   "user": "testy",
-#   "cookie": "722b5d21464ddae76f0b555a144a3ae29ad7a443"
-# }
-# {
-#   "user": "test8",
-#   "Token": "ae0940763986df5571a5cf3600a98ab9e2ee36a8"
-# }
-#lidia token
-'52faaaa299abd532a71fe1acff9bf28c4ea405d6'
-# fake Token
-# afd7ed0b2cd180e789115c3b46b14035e3bebd67
 
 # Create your views here.
 class Sign_up(APIView):
@@ -46,7 +34,7 @@ class Sign_up(APIView):
             new_user.save()
             # login(request, new_user)
             token = Token.objects.create(user = new_user)
-            response = Response({"user":new_user.username, "Token": token.key}, status=HTTP_201_CREATED)
+            response = Response({"user":new_user.username, "Token": token.key, "id":new_user.id}, status=HTTP_201_CREATED)
             # life_time = datetime.now()+timedelta(days=7)
             # flife_time = life_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
             # response.set_cookie(
@@ -65,14 +53,13 @@ class Sign_up(APIView):
 class Log_in(APIView):
     def post(self, request):
         data = request.data.copy()
-        print(data)
         user = authenticate(username=data.get("username"), password=data.get("password"))
-        print(user)
         if user:
             # login(request, user)
             token, created = Token.objects.get_or_create(user = user)
             print(token, created)
-            response = Response({"user":user.username, "Token": token.key}, status=HTTP_200_OK)
+            response = Response({"user":user.username, "Token": token.key, "id":user.id}, status=HTTP_200_OK)
+            print(response.data)
             # life_time = datetime.now()+timedelta(days=7)
             # flife_time = life_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
             # response.set_cookie(
@@ -104,4 +91,4 @@ class Log_out(TokenReq):
 class Info(TokenReq):
 
     def get(self, request):
-        return Response({"user":request.user.username})
+        return Response({"user":request.user.username, "id": request.user.id})

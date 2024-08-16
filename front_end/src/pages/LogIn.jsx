@@ -1,13 +1,14 @@
-import React, { useCallback } from 'react';
-import Input from '../components/input';
+import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { logIn } from '../utilities';
 import { useOutletContext } from "react-router-dom";
+import { FaUserInjured } from 'react-icons/fa';
 
 function LogIn() {
     const [username, setUsername] = useState('')
+    // const [userid, setUserid] = useState('')
     const { setUser } = useOutletContext();
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
@@ -47,14 +48,7 @@ function LogIn() {
                 Sign In
             </h2>
             <div className='flex flex-col gap-4'>
-            {/* <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
-                value={username}
-                onChange={(ev) => setUsername(ev.target.value)}
-                type='text'
-                placeholder='Username'
-                required
-                /> */}
-                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer'
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-black bg-opacity-60 focus:outline-white focus:ring-0 peer'
                 value={username}
                 placeholder='username'
                 onChange={(ev) => setUsername(ev.target.value)}
@@ -62,7 +56,7 @@ function LogIn() {
                 type='text'
                 required
                 />
-                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-neutral-700 appearance-none focus:outline-green-600 focus:ring-0 peer' 
+                <input className='block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-black bg-opacity-60 focus:outline-white focus:ring-0 peer' 
                 value={password}
                 placeholder='Password'
                 onChange={(ev) => setPassword(ev.target.value)}

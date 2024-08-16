@@ -29,10 +29,11 @@ export const logIn = async (username, password) => {
         "password": password,
     });
     if (response.status === 200) {
-        let { user, Token } = response.data;
+        let { user, Token} = response.data;
         localStorage.setItem('token', Token);
         api.defaults.headers.common['Authorization'] = `Token ${Token}`;
         return user
+        // return [...response.data]
     }
     alert(response.data);
     return null

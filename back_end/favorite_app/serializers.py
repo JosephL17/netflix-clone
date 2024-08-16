@@ -1,7 +1,10 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from user_app.models import User 
 from .models import Favorite
 
-class FavoariteSerializer(ModelSerializer):
+class FavoriteSerializer(ModelSerializer):
     class Meta:
         model = Favorite
         fields = "__all__"
+

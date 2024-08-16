@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         element: <NewandPopularPage />,
       },
       {
-        path: "/my-list",
+        path: "/mylist",
         element: <MyList />,
       },
     ],

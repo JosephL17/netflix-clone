@@ -11,7 +11,6 @@ function Navbar() {
    
     const handleClickHome=(e)=>{
         navigate('/home')
-        console.log('hello')
     }
     const handleClickTVShows=(e)=>{
         navigate('/tvshows')
@@ -49,7 +48,7 @@ function Navbar() {
                 <NavbarItem clickFunc={handleClickTVShows} label='TV Shows'/>
                 <NavbarItem clickFunc={handleClickMovies}label='Movies'/>
                 <NavbarItem clickFunc={handleClickPopular}label='New & Popular'/>
-                <NavbarItem label='My List'/>
+                <NavbarItem clickFunc={handleClickMylist} label='My List'/>
                 <NavbarItem label='Browse by languages'/>
             </div>
             <div className='lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative'>
@@ -58,7 +57,7 @@ function Navbar() {
             </div>
             <div className='flex flex-row ml-auto gap-7 items-center'>
               <div className='text-gray-200 hover:text-gray-300  cursor-pointer transition'>
-              <IoSearch size={30}/>
+              <IoSearch className='transition transform hover:scale-110' size={30}/>
                 </div>  
                 <div className='text-gray-200 hover:text-gray-300 cursor-pointer transition'>
               <BsBell size={20}/>
