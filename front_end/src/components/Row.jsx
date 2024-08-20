@@ -14,7 +14,8 @@ import YouTube from 'react-youtube';
 function Row({title, getURL, rowID, clickFunc}) {
     const { user } = useOutletContext()
     const [movie, setMovie] = useState([])
-    const [like, setLike] = useState(false)
+    const [like, setLike] = useState([])
+    const [isliked, setIsLiked] = useState(false)
     const [favorite, setFavorite] = useState(false)
     const [userID, setUserID] = useState('')
     const [key, setKey] = useState('')
@@ -66,12 +67,16 @@ function Row({title, getURL, rowID, clickFunc}) {
         handlePlay('https://i.kym-cdn.com/photos/images/original/000/377/946/0b9.jpg');
       };
 
-      const getTrailers = async(id) => {
-        let response = await api.get('/movies/trailers/', {
-          'id': id
-        })
-        setKey(response.data.results[0].key)
-      }
+
+
+      //TODO
+      //STRETCH goal is to add trailers
+      // const getTrailers = async(id) => {
+      //   let response = await api.get('/movies/trailers/', {
+      //     'id': id
+      //   })
+      //   setKey(response.data.results[0].key)
+      // }
       
 
     useEffect(() => {
@@ -79,7 +84,7 @@ function Row({title, getURL, rowID, clickFunc}) {
             setMovie(response.data.results)
         },
     )
-    getTrailers()
+    // getTrailers()
     },[])
     
     useEffect(()=> {
@@ -97,12 +102,23 @@ function Row({title, getURL, rowID, clickFunc}) {
         "user" : userID,
         "title" : movie.title,
         "name" : movie.name,
-        "genre" : movie.genre,
         "description" : movie.description,
         "overview" : movie.overview,
         "backdrop_path" : movie.backdrop_path,
       })
       setFavorite(true)
+    }
+
+    const addLike = async(movie) => {
+      let response = await api.post('Favorites/likes/', {
+        "user" : userID,
+        "title" : movie.title,
+        "name" : movie.name,
+        "description" : movie.description,
+        "overview" : movie.overview,
+        "backdrop_path" : movie.backdrop_path,
+      })
+      setIsLiked(true)
     }
 
 
@@ -137,7 +153,7 @@ function Row({title, getURL, rowID, clickFunc}) {
                             {favorite ? <FaCirclePlus className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> : <LuPlusCircle onClick={()=>addFavorite(item)} className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> }
                             </p>
                             <p>
-                               {like ? <BsHandThumbsUpFill className='absolute top-2 left-6 text-gray-300 hover:scale-105'/> : <BsHandThumbsUp className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 
+                               {isliked ? <BsHandThumbsUpFill className='absolute top-2 left-6 text-gray-300 hover:scale-105'/> : <BsHandThumbsUp onClick={()=>addLike(item)}  className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 
                             </p>
                         </div>
                     </div>  

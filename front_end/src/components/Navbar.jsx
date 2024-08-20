@@ -24,6 +24,9 @@ function Navbar() {
     const handleClickMylist=()=>{
         navigate('/MyList')
     }
+    const handleClickMylikes=()=>{
+        navigate('/MyLikes')
+    }
     const handleClickLogOut = async()=> {
         setUser(await logOut())
     }
@@ -48,6 +51,7 @@ function Navbar() {
                 <NavbarItem clickFunc={handleClickMovies}label='Movies'/>
                 <NavbarItem clickFunc={handleClickPopular}label='New & Popular'/>
                 <NavbarItem clickFunc={handleClickMylist} label='My List'/>
+                <NavbarItem clickFunc={handleClickMylikes} label='My Likes'/>
                 <NavbarItem label='Browse by languages'/>
             </div>
             <div className='lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative'>
