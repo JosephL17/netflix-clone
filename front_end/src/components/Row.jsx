@@ -80,7 +80,7 @@ function Row({title, getURL, rowID, clickFunc}) {
         },
     )
     getTrailers()
-    },[getURL])
+    },[])
     
     useEffect(()=> {
       const getID = async() => {
