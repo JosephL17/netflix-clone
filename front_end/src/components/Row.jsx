@@ -8,6 +8,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { api } from '../utilities';
 import { useOutletContext } from 'react-router-dom';
 import { confirmUser } from '../utilities';
+import YouTube from 'react-youtube';
+
 
 function Row({title, getURL, rowID, clickFunc}) {
     const { user } = useOutletContext()
@@ -15,6 +17,7 @@ function Row({title, getURL, rowID, clickFunc}) {
     const [like, setLike] = useState(false)
     const [favorite, setFavorite] = useState(false)
     const [userID, setUserID] = useState('')
+    const [key, setKey] = useState('')
 
 
     const handlePlay = (imageUrl) => {
@@ -63,14 +66,22 @@ function Row({title, getURL, rowID, clickFunc}) {
         handlePlay('https://i.kym-cdn.com/photos/images/original/000/377/946/0b9.jpg');
       };
 
+      const getTrailers = async(id) => {
+        let response = await api.get('/movies/trailers/', {
+          'id': id
+        })
+        setKey(response.data.results[0].key)
+      }
+      
 
     useEffect(() => {
         axios.get(getURL).then((response) => {
             setMovie(response.data.results)
         },
     )
+    getTrailers()
     },[getURL])
-
+    
     useEffect(()=> {
       const getID = async() => {
       let Token = localStorage.getItem('token')
@@ -91,7 +102,9 @@ function Row({title, getURL, rowID, clickFunc}) {
         "overview" : movie.overview,
         "backdrop_path" : movie.backdrop_path,
       })
+      setFavorite(true)
     }
+
 
     const slideLeft = () => {
         let slider = document.getElementById('slider' + rowID)
@@ -103,8 +116,10 @@ function Row({title, getURL, rowID, clickFunc}) {
         slider.scrollLeft = slider.scrollLeft + 500
     }
 
-    // console.log(movie)
-
+    // TODO 
+    // figure out how to use youtube react component 
+    // <YouTube videoId={key} />
+    
   return (
     <>
         <h2 className='text-white font-bold md:text-2xl p-2 relative z-10'>{title}</h2>
@@ -114,12 +129,12 @@ function Row({title, getURL, rowID, clickFunc}) {
             size={40} className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-20 hidden group-hover:block'/>
             <div id={'slider' + rowID} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative'>
                 {movie.map((item) => (
-                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px] ml-4 inline-flex cursor-pointer relative p-2 transition-transform transform hover:scale-[1.3] hover:z-10 '>
-                        <img onClick={handlePlay} className='w-full h-auto block bg-gradient-to-b from-black' src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`} alt={item.title ? item.title : item.name} />
+                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px]  ml-4 inline-flex cursor-pointer relative p-2 transition-transform transform hover:scale-[1.3] hover:z-10 '>
+                        <img onClick={handlePlay} className='w-auto h-auto block bg-gradient-to-b from-black' src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}  alt={item.title ? item.title : item.name} /> 
                         <div className='absolute top-0 left-0 h-full w-full  opacity-0 hover:opacity-100 text-white'>
                             <p className='white-space-normal text-md md:text-md font-bold flex justify-center items-center h-full text-center'>{item.title ? item.title : item.name}</p>
                             <p>
-                            {favorite ? <LuPlusCircle className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> : <FaCirclePlus onClick={()=>addFavorite(item)} className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> }
+                            {favorite ? <FaCirclePlus className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> : <LuPlusCircle onClick={()=>addFavorite(item)} className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> }
                             </p>
                             <p>
                                {like ? <BsHandThumbsUpFill className='absolute top-2 left-6 text-gray-300 hover:scale-105'/> : <BsHandThumbsUp className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 

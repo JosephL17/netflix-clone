@@ -40,8 +40,7 @@ function Navbar() {
         transition 
         duration-500
         bg-zinc-900 
-         bg-opacity-90'
-         >
+         bg-opacity-90' >
         <img className='h-4 lg:h-7' src="/src/assets/netflix.png" alt="" />
             <div className='flex-row ml-8 gap-7 hidden lg:flex'>
                 <NavbarItem clickFunc={handleClickHome} label='Home'/>

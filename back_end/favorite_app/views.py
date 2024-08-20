@@ -9,13 +9,35 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 class FavoritesView(APIView):
     
+    # def get(self, request):
+    #     user = request.user.id
+    #     print(user)
+    #     try:
+    #         all_movie_ser = FavoriteSerializer(Favorite.objects, many=True)
+    #         return Response(all_movie_ser.data, status=HTTP_200_OK)
+    #     except all_movie_ser.DoesNotExist:
+    #         return Response({"error": "Movie not found"}, status=HTTP_404_NOT_FOUND)
+
     def get(self, request):
-        user = request.user
+        user = request.user.id
+        print(f"User ID: {user}")
+        
         try:
-            all_movie_ser = FavoriteSerializer(Favorite.objects, many=True)
+            # Retrieve the list of favorite movies for the user
+            favorites = Favorite.objects.filter(user=user)
+            
+            # Check if favorites exists for the user
+            if not favorites:
+                return Response({"error": "No favorites found for this user"}, status=HTTP_404_NOT_FOUND)
+            
+            # Serialize the list of favorites
+            all_movie_ser = FavoriteSerializer(favorites, many=True)
+            
             return Response(all_movie_ser.data, status=HTTP_200_OK)
-        except all_movie_ser.DoesNotExist:
-            return Response({"error": "Movie not found"}, status=HTTP_404_NOT_FOUND)
+        
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return Response({"error": "An error occurred while retrieving favorites"}, status=HTTP_404_NOT_FOUND)
 
     def post(self, request):
         print(request)
@@ -26,3 +48,24 @@ class FavoritesView(APIView):
             return Response(new_favorite.data, status=HTTP_201_CREATED)
         else:
             return Response(new_favorite.errors, status=HTTP_400_BAD_REQUEST)
+        
+class A_Favorite(APIView):
+        
+    def delete(self, request, id):
+        try:
+            favorite = Favorite.objects.get(id=id)
+            favorite.delete()
+            return Response({'message': 'Favorite deleted successfully'}, status=204)
+        except Favorite.DoesNotExist:
+            return Response({'error': 'Favorite not found'}, status=HTTP_400_BAD_REQUEST)
+
+
+        # try:
+        #     #grab show/movie from database
+        #     favorite = Favorite.objects.get(id=id)
+        #     # favorite = get_object_or_404(Favorite, id=id)
+        # except Favorite.DoesNotExist:
+        #     return Response({'error': 'Favorite not found'}, status=HTTP_404_NOT_FOUND)
+        
+        # favorite.delete()
+        # return Response(status=HTTP_204_NO_CONTENT)

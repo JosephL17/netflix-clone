@@ -8,3 +8,7 @@ class FavoriteSerializer(ModelSerializer):
         model = Favorite
         fields = "__all__"
 
+# class A_FavoriteSerializer(ModelSerializer):
+#     class Meta:
+#         model = Favorite
+#         fields = "__all__"

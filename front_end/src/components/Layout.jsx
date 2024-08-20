@@ -5,6 +5,7 @@ import axios from 'axios'
 import { api } from '../utilities';
 import { FaPlay } from "react-icons/fa";
 import { useOutletContext } from 'react-router-dom';
+import YouTube from 'react-youtube';
 
 function Layout() {
   const {username, setUsername} = useOutletContext()
@@ -16,6 +17,8 @@ function Layout() {
     let response = await api.get('movies/fetch-data/')
     setMovies(response.data.results)
   }
+
+  
 
   const handlePlay = (imageUrl) => {
     // Open a new window
