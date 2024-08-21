@@ -23,7 +23,6 @@ export const userRegistration = async (email, username, password) => {
 }
 
 export const logIn = async (username, password) => {
-    console.log(username, password,)
     let response = await api.post('users/login/', {
         "username": username,
         "password": password,

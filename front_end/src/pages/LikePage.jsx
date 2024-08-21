@@ -1,7 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import Layout from '../components/Layout'
-import Row from '../components/Row'
 import { api } from '../utilities'
 import Navbar from '../components/Navbar';
 import { FaPlay } from "react-icons/fa";
@@ -45,7 +43,7 @@ const slideRight = () => {
   return (
     <>
      <Navbar />
-    <div className=' w-full h-[750px]'>
+    <div className=' w-full h-full'>
       <div className='w-full h-full'>
       {/* Main background image with gradient */}
       <div className='absolute w-full h-[550px]'>
@@ -71,9 +69,9 @@ const slideRight = () => {
             <FaChevronLeft 
                 onClick={slideLeft}
             size={40} className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-20 hidden group-hover:block'/>
-            <div id={'slider'} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative'>
+            <div id={'slider'} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative transition-transform transform hover:scale-[1.3] hover:z-10'>
               { likes && likes.length > 0 && likes.map((item) => (
-                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px] ml-4 inline-flex cursor-pointer relative p-2 transition-transform transform hover:scale-[1.3] hover:z-10 '>
+                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px] ml-4 inline-flex cursor-pointer relative p-2'>
                         <img  className='w-full h-auto block bg-gradient-to-b from-black' src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`} alt={item.title ? item.title : likes.name} />
                         <div className='absolute top-0 left-0 h-full w-full  opacity-0 hover:opacity-100 text-white'>
                             <p className='white-space-normal text-md md:text-md font-bold flex justify-center items-center h-full text-center'>{item.title ? item.title : item.name}</p>
@@ -81,7 +79,7 @@ const slideRight = () => {
                             {isfavorited ? <FaCirclePlus onClick={()=>deleteFavorite(item.id)}  className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> : <LuPlusCircle onClick={()=>addFavorite(item)} className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> }
                             </p>
                             <p>
-                               {isLiked ? <BsHandThumbsUpFill onClick={()=>deleteLike(item.id)}  className='absolute top-2 left-6 text-gray-300 hover:scale-105'/> : <BsHandThumbsUp className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 
+                               {isLiked ? <BsHandThumbsUpFill size={20} onClick={()=>deleteLike(item.id)}  className='absolute top-2 left-6 text-gray-300 hover:scale-105'/> : <BsHandThumbsUp className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 
                             </p>
                         </div>
                     </div>  

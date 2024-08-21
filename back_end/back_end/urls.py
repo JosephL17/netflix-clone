@@ -11,5 +11,6 @@ urlpatterns = [
     path('api/v1/users/', include("user_app.urls")),
     path('api/v1/Profile/', include("profile_app.urls")),
     path("api/v1/Favorites/", include("favorite_app.urls")),
-    path('api/v1/movies/', include('movie_app.urls'))
+    path('api/v1/movies/', include('movie_app.urls')),
+    path('api/v1/gemini/', include('gemini_app.urls'))
 ]

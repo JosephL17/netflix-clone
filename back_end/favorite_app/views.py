@@ -55,7 +55,7 @@ class A_Favorite(APIView):
         try:
             favorite = Favorite.objects.get(id=id)
             favorite.delete()
-            return Response({'message': 'Favorite deleted successfully'}, status=204)
+            return Response({'message': 'Favorite deleted successfully'}, status=HTTP_204_NO_CONTENT)
         except Favorite.DoesNotExist:
             return Response({'error': 'Favorite not found'}, status=HTTP_400_BAD_REQUEST)
 
@@ -97,6 +97,6 @@ class A_Like(APIView):
         try:
             like = Liked.objects.get(id=id)
             like.delete()
-            return Response({'message': 'Like deleted successfully'}, status=204)
+            return Response({'message': 'Like deleted successfully'}, status=HTTP_204_NO_CONTENT)
         except Favorite.DoesNotExist:
             return Response({'error': 'Like not found'}, status=HTTP_400_BAD_REQUEST)

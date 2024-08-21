@@ -69,8 +69,8 @@ function Row({title, getURL, rowID, clickFunc}) {
 
 
 
-      //TODO
-      //STRETCH goal is to add trailers
+      // TODO:
+      // STRETCH goal is to add trailers
       // const getTrailers = async(id) => {
       //   let response = await api.get('/movies/trailers/', {
       //     'id': id
@@ -143,17 +143,17 @@ function Row({title, getURL, rowID, clickFunc}) {
             <FaChevronLeft 
                 onClick={slideLeft}
             size={40} className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-20 hidden group-hover:block'/>
-            <div id={'slider' + rowID} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative'>
+            <div id={'slider' + rowID} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative  transition-transform transform hover:scale-[1.3] hover:z-10 '>
                 {movie.map((item) => (
-                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px]  ml-4 inline-flex cursor-pointer relative p-2 transition-transform transform hover:scale-[1.3] hover:z-10 '>
-                        <img onClick={handlePlay} className='w-auto h-auto block bg-gradient-to-b from-black' src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}  alt={item.title ? item.title : item.name} /> 
+                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px]  ml-4 inline-flex cursor-pointer relative p-2'>
+                        <img onClick={handlePlay} className='w-auto h-auto block bg-gradient-to-b from-black transition-transform transform hover:scale-[1.2] hover:z-10 ' src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}  alt={item.title ? item.title : item.name} /> 
                         <div className='absolute top-0 left-0 h-full w-full  opacity-0 hover:opacity-100 text-white'>
                             <p className='white-space-normal text-md md:text-md font-bold flex justify-center items-center h-full text-center'>{item.title ? item.title : item.name}</p>
                             <p>
-                            {favorite ? <FaCirclePlus className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> : <LuPlusCircle onClick={()=>addFavorite(item)} className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> }
+                            {favorite ? <FaCirclePlus className='absolute top-4 left-12 text-gray-500 hover:scale-120'/> : <LuPlusCircle onClick={()=>addFavorite(item)} className='absolute top-4 left-12 text-gray-300 hover:scale-110'/> }
                             </p>
                             <p>
-                               {isliked ? <BsHandThumbsUpFill className='absolute top-2 left-6 text-gray-300 hover:scale-105'/> : <BsHandThumbsUp onClick={()=>addLike(item)}  className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 
+                               {isliked ? <BsHandThumbsUpFill className='absolute top-2 left-6 text-gray-500 hover:scale-120'/> : <BsHandThumbsUp onClick={()=>addLike(item)}  className='absolute top-4 left-4 text-gray-300 hover:scale-105'/> } 
                             </p>
                         </div>
                     </div>  

@@ -25,7 +25,6 @@ function MyList() {
       "backdrop_path" : movie.backdrop_path,
     })
     setIsFavorited(true)
-    console.log(response)
   }
 
   const deleteFavorite = async(id) => {
@@ -37,11 +36,10 @@ function MyList() {
       let response = await api.get('Favorites/')
       setFavorites(response.data)
     }
-    console.log(favorites)
+    
 
   useEffect(()=> {
     getFavorites()
-    console.log('useeffect fires')
   },[isfavorited])
 
   const slideLeft = () => {
@@ -83,9 +81,9 @@ const slideRight = () => {
             <FaChevronLeft 
                 onClick={slideLeft}
             size={40} className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-20 hidden group-hover:block'/>
-            <div id={'slider'} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative'>
+            <div id={'slider'} className='w-full h-full overflow-hidden whitespace-nowrap scroll-smooth relative transition-transform transform hover:scale-[1.3] hover:z-10'>
               { favorites && favorites.length > 0 && favorites.map((item) => (
-                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px] ml-4 inline-flex cursor-pointer relative p-2 transition-transform transform hover:scale-[1.3] hover:z-10 '>
+                   <div key={item.id} className='w-[160px] sm:w-[200px] md:w-[240px] ml-4 inline-flex cursor-pointer relative p-2'>
                         <img  className='w-full h-auto block bg-gradient-to-b from-black' src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`} alt={item.title ? item.title : favorites.name} />
                         <div className='absolute top-0 left-0 h-full w-full  opacity-0 hover:opacity-100 text-white'>
                             <p className='white-space-normal text-md md:text-md font-bold flex justify-center items-center h-full text-center'>{item.title ? item.title : item.name}</p>
